@@ -1,0 +1,41 @@
+From: Emmanuel Arias <eamanu@yaerobi.com>
+Date: Thu, 12 Nov 2020 16:15:42 -0300
+Subject: Add patch to use libblosc
+
+Currently the CMakeLists use an local c-blosc folder and don't search
+the blosc intalled on system. This patch use the libblosc library
+package on Debian.
+---
+ CMakeLists.txt | 16 ++++++++--------
+ debian/rules   |  3 +--
+ 2 files changed, 9 insertions(+), 10 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2711877..833b9d9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,16 +4,16 @@ find_package(PythonExtensions REQUIRED)
+ 
+ # Todo: c-blosc provides a CMake package configuration file that we can build
+ # against if blosc is available on the system, etc.
+-# find_package(blosc)
++find_package(blosc)
+ # if(NOT blosc_FOUND)
+-set(BUILD_STATIC ON CACHE BOOL "Build a static version of the blosc library.")
+-set(BUILD_SHARED OFF CACHE BOOL "Build a shared library version of the blosc library.")
+-set(BUILD_TESTS OFF CACHE BOOL "Build test programs form the blosc compression library")
+-set(BUILD_BENCHMARKS OFF CACHE BOOL "Build benchmark programs form the blosc compression library")
+-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+-add_subdirectory(c-blosc)
++#set(BUILD_STATIC ON CACHE BOOL "Build a static version of the blosc library.")
++#set(BUILD_SHARED OFF CACHE BOOL "Build a shared library version of the blosc library.")
++#set(BUILD_TESTS OFF CACHE BOOL "Build test programs form the blosc compression library")
++#set(BUILD_BENCHMARKS OFF CACHE BOOL "Build benchmark programs form the blosc compression library")
++#set(CMAKE_POSITION_INDEPENDENT_CODE ON)
++#add_subdirectory(c-blosc)
+ 
+ add_library(blosc_extension MODULE blosc/blosc_extension.c)
+-target_link_libraries(blosc_extension blosc_static)
++target_link_libraries(blosc_extension blosc)
+ python_extension_module(blosc_extension)
+ install(TARGETS blosc_extension LIBRARY DESTINATION blosc)

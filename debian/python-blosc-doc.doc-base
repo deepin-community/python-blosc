@@ -1,0 +1,7 @@
+Document: python-blosc-doc
+Title: documentation of python-blosc
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-blosc-doc/html/index.html
+Files: /usr/share/doc/python-blosc-doc/html/*.html

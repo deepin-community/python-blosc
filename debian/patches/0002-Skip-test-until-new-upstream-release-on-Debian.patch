@@ -1,0 +1,20 @@
+From: Emmanuel Arias <eamanu@yaerobi.com>
+Date: Thu, 12 Nov 2020 17:36:58 -0300
+Subject: Skip test until new upstream release on Debian
+
+---
+ blosc/test.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/blosc/test.py b/blosc/test.py
+index 007d513..72c2d4a 100644
+--- a/blosc/test.py
++++ b/blosc/test.py
+@@ -348,6 +348,7 @@ class TestCodec(unittest.TestCase):
+         self.assertFalse(blosc.cbuffer_validate(bytearray(compressed)))
+         self.assertFalse(blosc.cbuffer_validate(np.array([compressed])))
+ 
++    @unittest.skip("Skip test until new upstream release c-blosc")
+     def test_bithuffle_leftovers(self):
+         # Test for https://github.com/Blosc/c-blosc2/pull/100
+         import numpy as np

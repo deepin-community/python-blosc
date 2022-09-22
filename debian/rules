@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+export DH_VERBOSE=1
+export PYBUILD_NAME=blosc
+export PYBUILD_SYSTEM=distutils
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+export BLOSC_DIR=/usr/lib
+export DEB_RULES_REQUIRES_ROOT=no
+
+export CMAKE_MODULE_PATH = /usr/lib/python3/dist-packages/skbuild/resources/cmake
+
+%:
+	dh $@ --with=python3 --buildsystem=pybuild
+
+override_dh_auto_build-arch:
+	# pass
+
+override_dh_auto_build:
+	# pass
+
+override_dh_auto_install-arch: override_dh_auto_install
+	# pass
+
+override_dh_auto_install:
+ifeq (,$(filter nodoc, $(DEB_BUILD_OPTIONS)))
+	python3 setup.py build_ext -i
+	PYTHONPATH=. http_proxy='127.0.0.1:9' python3 -m sphinx -N doc/ debian/python-blosc-doc/usr/share/doc/python-blosc-doc/html/
+endif
+	set -e ; for pyver in $(shell py3versions -rv); do \
+		python$$pyver setup.py install --root=$(CURDIR)/debian/python3-blosc --install-layout=deb ; \
+	done;
+
+override_dh_installdocs:
+ifeq (,$(filter nodoc, $(DEB_BUILD_OPTIONS)))
+	rst2html -r 5 README.rst .pybuild/README.html
+	LANG=C.UTF-8 links -dump .pybuild/README.html > .pybuild/README
+endif
+	dh_installdocs -A .pybuild/README
+
+override_dh_installchangelogs:
+	dh_installchangelogs RELEASE_NOTES.rst

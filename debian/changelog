@@ -1,0 +1,206 @@
+python-blosc (1.9.2+ds1-3) unstable; urgency=medium
+
+  * Team upload
+  * Deactivate SSE2 and AVX2 if CPU has no flags (Closes: #976910)
+  * Explicitly set PYBUILD_SYSTEM=distutils to avoid misdetection
+  * Mark python-blosc-doc Multi-Arch: foreign
+  * Bump Standards-Version to 4.5.1, no changes
+
+ -- Graham Inggs <ginggs@debian.org>  Fri, 01 Jan 2021 00:03:56 +0000
+
+python-blosc (1.9.2+ds1-2) unstable; urgency=medium
+
+  * d/rules: Find cmake files shipped in python3-skbuild.
+    - Patch by Matthias Klose.
+  * d/rules: override build/install-arch target.
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Fri, 11 Dec 2020 18:08:25 -0300
+
+python-blosc (1.9.2+ds1-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Emmanuel Arias ]
+  * New upstream version 1.9.2+ds1
+  * d/patches: Update patches:
+    - Remove not longer applied patches.
+    - Add patch to build python-blosc using the libblosc library.
+    - Skip test until new upstream realse of c-blosc.
+  * d/control: add python3-skbuild build-dependency.
+  * wrap-and-sort.
+  * d/control: Update my contact information.
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Thu, 12 Nov 2020 17:11:49 -0300
+
+python-blosc (1.8.1+ds1-2.1) unstable; urgency=medium
+
+   * Non-maintainer upload.
+   * Fix tests with Python 3.9. Closes: #973022.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 08 Nov 2020 09:35:22 +0100
+
+python-blosc (1.8.1+ds1-2) unstable; urgency=medium
+
+  [ Emmanuel Arias ]
+  * Team Upload.
+  * d/salsa-ci-yml: enable salsa-ci.
+  * d/control: Add DPMT as Maintainer and add
+    me as Uploaders (Closes: #945189).
+    - d/copyright: add me on copyright file.
+  * d/tests/python3-blosc: use pyversion -s instead of parameter -i
+    to test all installed versions.
+
+  [ Tristan Seligmann ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit.
+  * Update standards version to 4.5.0, no changes needed.
+  * Bump debhelper-compat to 13.
+  * Switch to dh-sequence-*.
+  * Declare rootless build.
+
+ -- Tristan Seligmann <mithrandi@debian.org>  Sun, 02 Aug 2020 18:10:04 +0200
+
+python-blosc (1.8.1+ds1-1) unstable; urgency=medium
+
+  * QA upload
+  * New upstream version 1.8.1+ds1
+  * Create 0002-platform-linux_distribution-is-gone-in-python-3.8.patch
+    closes: #944320
+  * Added minimum version on libblosc-dev in b-d
+  * Bump dh to 12
+  * Remove python2 package under recommends, for doc package.
+  * Change copyright from Expat to BSD-3 for upstream files.
+
+ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Fri, 13 Dec 2019 23:40:55 +0100
+
+python-blosc (1.7.0+ds1-3) unstable; urgency=medium
+
+  * Orphaning package.
+
+ -- Daniel Stender <stender@debian.org>  Thu, 21 Nov 2019 00:44:06 +0100
+
+python-blosc (1.7.0+ds1-2) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat.
+  * Bump Standards-Version to 4.4.1.
+
+  [ Sandro Tosi ]
+  * Drop python2 support; Closes: #937616
+
+ -- Sandro Tosi <morph@debian.org>  Wed, 06 Nov 2019 22:28:08 -0500
+
+python-blosc (1.7.0+ds1-1) unstable; urgency=medium
+
+  * New upstream release:
+    + drop py2-coding-headers.patch (applied upstream).
+  * deb/control:
+    + bump standards to 4.3.0 (no changes needed).
+
+ -- Daniel Stender <stender@debian.org>  Sat, 29 Dec 2018 13:09:16 +0100
+
+python-blosc (1.6.2+ds1-2) unstable; urgency=medium
+
+  * restore (and unfuzz) catch-cpuinfo-import-error.patch.
+
+ -- Daniel Stender <stender@debian.org>  Sun, 18 Nov 2018 23:23:50 +0100
+
+python-blosc (1.6.2+ds1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * deb/control:
+    + bump standards to 4.2.1 (no further changes needed).
+  * deb/copyright:
+    + expand copyright span.
+  * deb/rules:
+    + build with DH_VERBOSE=1 (according to policy 4.2.0).
+    + drop unnecessary export line for DEB_BUILD_OPTIONS.
+    + build with hardening=+all.
+    + add checks for "nodoc" build option in related overrides.
+  * drop debian/patches/catch-cpuinfo-import-error.patch (obsolete).
+  * drop temporarily-disable-numpydoc.patch (not needed anymore).
+  * add py2-coding-headers.patch
+  * use build profile switches:
+    + add !nodoc and !nocheck switches to b-deps in d/control.
+    + add Build-Profiles field to docs package in d/control.
+    + add check for nodoc in DEB_BUILD_PROFILES to dh sequencer call in d/rules,
+      skip sphinxdoc extension accordingly.
+  * build with dh level 11 (changes in d/compat and d/control).
+
+  [ Ondřej Nový ]
+  * d/control: Remove ancient X-Python-Version field
+  * d/control: Remove ancient X-Python3-Version field
+  * Use 'python3 -m sphinx' instead of sphinx-build for building docs
+
+ -- Daniel Stender <stender@debian.org>  Sun, 18 Nov 2018 22:07:29 +0100
+
+python-blosc (1.5.1+ds2-1) unstable; urgency=medium
+
+  * use python-cpuinfo in the archive instead of vendored file:
+    + add cpuinfo.py to Files-Excluded in deb/copyright.
+    + drop license paragraph in deb/copyright.
+    + add python{,3}-cpuinfo to build deps in deb/control.
+  * deb/control:
+    + add psutil to build deps (needed by tests).
+    + bump standards to 4.1.4 (no changes needed).
+    + add numpy to Recommends (needed for running the tests).
+  * add DEP-8 testsuite.
+
+ -- Daniel Stender <stender@debian.org>  Tue, 01 May 2018 17:20:46 +0200
+
+python-blosc (1.5.1+ds1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * deb/control: pull numpydoc to build-deps.
+  * deb/copyright: expand copyright span.
+  * deb/rules: build extension inplace for docs.
+  * deb/clean: add inplace extension to cleans.
+
+ -- Daniel Stender <stender@debian.org>  Tue, 20 Mar 2018 18:06:02 +0100
+
+python-blosc (1.4.4+ds1-5) unstable; urgency=medium
+
+  * deb/control: bump standards version to 4.1.3 (no further changes needed).
+  * deb/copyright: expand copyright span.
+  [ Ondřej Nový ]
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/copyright: Use https protocol in Format field
+
+ -- Daniel Stender <stender@debian.org>  Mon, 19 Feb 2018 12:59:09 +0100
+
+python-blosc (1.4.4+ds1-4) unstable; urgency=medium
+
+  * add temporarily-disable-numpydoc.patch (Closes: #869195).
+  * deb/control:
+    + add DPMT as Uploaders.
+    + update Vcs fields (package source moved to python-modules).
+  * deb/gbp.conf:
+    + set debian-branch to meet DEP-14.
+    + add sign-tags set to True.
+
+ -- Daniel Stender <stender@debian.org>  Fri, 25 Aug 2017 10:05:48 +0200
+
+python-blosc (1.4.4+ds1-3) unstable; urgency=medium
+
+  * Uploaded to unstable.
+  * deb/control:
+    + drop build-deps on python-setuptools-scm (not needed).
+  * catch-cpuinfo-import-error.patch:
+    + improved description text.
+
+ -- Daniel Stender <stender@debian.org>  Sun, 18 Dec 2016 00:14:01 +0100
+
+python-blosc (1.4.4+ds1-2) experimental; urgency=medium
+
+  * Add catch-cpuinfo-import-error.patch.
+
+ -- Daniel Stender <stender@debian.org>  Sat, 17 Dec 2016 22:09:26 +0100
+
+python-blosc (1.4.4+ds1-1) experimental; urgency=medium
+
+  * Initial release (Closes: #834777).
+
+ -- Daniel Stender <stender@debian.org>  Mon, 05 Sep 2016 20:55:23 +0200

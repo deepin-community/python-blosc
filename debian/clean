@@ -1,0 +1,3 @@
+blosc/version.py
+blosc.egg-info/
+blosc/*.so

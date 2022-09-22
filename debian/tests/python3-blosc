@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+cd /
+for py in $(py3versions -s); do echo "[*] testing $py:"; $py -c 'import blosc; blosc.test()' 2>&1; done

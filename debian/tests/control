@@ -1,0 +1,6 @@
+Tests: python3-blosc
+Depends:
+ python3-all,
+ python3-blosc,
+ python3-numpy,
+ python3-psutil,

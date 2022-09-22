@@ -1,0 +1,65 @@
+Source: python-blosc
+Section: python
+Priority: optional
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
+Uploaders:
+ Emmanuel Arias <eamanu@yaerobi.com>,
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ dh-sequence-python3,
+ dh-sequence-sphinxdoc <!nodoc>,
+ libblosc-dev (>= 1.16),
+ links <!nodoc>,
+ python3-all-dev,
+ python3-cpuinfo,
+ python3-docutils <!nodoc>,
+ python3-mock <!nocheck>,
+ python3-numpy <!nocheck>,
+ python3-numpydoc <!nodoc>,
+ python3-psutil <!nocheck>,
+ python3-setuptools,
+ python3-skbuild,
+ python3-sphinx <!nodoc>,
+Standards-Version: 4.5.1
+Vcs-Browser: https://salsa.debian.org/python-team/packages/python-blosc
+Vcs-Git: https://salsa.debian.org/python-team/packages/python-blosc.git
+Homepage: https://github.com/Blosc/python-blosc
+Rules-Requires-Root: no
+
+Package: python3-blosc
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends},
+Recommends:
+ python3-numpy,
+Suggests:
+ python-blosc-doc,
+Description: Python 3 bindings for the Blosc meta-compressor
+ Blosc (http://blosc.org) is a high performance compressor optimized for
+ binary data. It has been designed to transmit data to the processor cache
+ faster than the traditional, non-compressed, direct memory fetch approach
+ via a memcpy() OS call.
+ .
+ This package provides the official Python bindings in the Python 3 import
+ path.
+
+Package: python-blosc-doc
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Build-Profiles: <!nodoc>
+Depends:
+ ${misc:Depends},
+ ${sphinxdoc:Depends},
+Recommends:
+ python3-blosc,
+Description: Python bindings for the Blosc meta-compressor (docs)
+ Blosc (http://blosc.org) is a high performance compressor optimized for
+ binary data. It has been designed to transmit data to the processor cache
+ faster than the traditional, non-compressed, direct memory fetch approach
+ via a memcpy() OS call.
+ .
+ This package provides the documentation.

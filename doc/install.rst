@@ -50,15 +50,15 @@ Installing via setuptools
     $ python setup.py build_ext --inplace
 
 Any codec can be enabled (`=1`) or disabled (`=0`) on this build-path with the appropriate
-OS environment variables `INCLUDE_LZ4`, `INCLUDE_SNAPPY`, `INCLUDE_ZLIB`, and 
-`INCLUDE_ZLIB`. By default all the codecs in Blosc are enabled except Snappy 
+OS environment variables `INCLUDE_LZ4`, `INCLUDE_SNAPPY`, `INCLUDE_ZLIB`, and
+`INCLUDE_ZLIB`. By default all the codecs in Blosc are enabled except Snappy
 (due to some issues with C++ with the `gcc` toolchain).
 
-`setuptools` is limited to using the compiler specified in the environment 
-variable `CC` which on posix systems is usually `gcc`. This often causes 
+`setuptools` is limited to using the compiler specified in the environment
+variable `CC` which on posix systems is usually `gcc`. This often causes
 trouble with the Snappy codec, which is written in C++, and as a result Snappy
-is no longer compiled by default. This problem is not known to affect MSVC or 
-clang. Snappy is considered optional in Blosc as its compression performance 
+is no longer compiled by default. This problem is not known to affect MSVC or
+clang. Snappy is considered optional in Blosc as its compression performance
 is below that of the other codecs.
 
 That's all. You can proceed with testing section now.
@@ -68,7 +68,7 @@ Compiling with an installed Blosc library
 -----------------------------------------
 
 This approach uses pre-built, fully optimized versions of Blosc built via
-CMake. 
+CMake.
 
 Go to https://github.com/Blosc/c-blosc/releases and download and install
 the C-Blosc library.  Then, you can tell python-blosc where is the
@@ -82,7 +82,7 @@ Using an environment variable:
     $ export BLOSC_DIR         (not needed on Win)
     $ python setup.py build_clib
     $ python setup.py build_ext --inplace
- 
+
 Using a flag:
 
 .. code-block:: console
@@ -110,16 +110,7 @@ running the doctests in ``blosc/test.py``:
 
 .. code-block:: console
 
-    $ PYTHONPATH=.   (or "set PYTHONPATH=." on Win)
-    $ export PYTHONPATH=.  (not needed on Win)
-    $ python blosc/test.py  (add -v for verbose mode)
-
-Or alternatively, you can use the third-party ``nosetests`` script to run both
-the doctests and the test suite:
-
-.. code-block:: console
-
-    $ nosetests --with-doctest (add -v for verbose mode)
+    $ python -m blosc.test  (add -v for verbose mode)
 
 Once installed, you can re-run the tests at any time with:
 
@@ -134,4 +125,4 @@ Install it as a typical Python package:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ python -m pip install .

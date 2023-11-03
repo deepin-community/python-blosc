@@ -1,26 +1,20 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: python-blosc
-Upstream-Contact: Francesc Alted <francesc@blosc.org>
+Upstream-Contact: The Blosc Development Team <blosc@blosc.org>
 Source: https://github.com/Blosc/python-blosc
 Files-Excluded: .gitignore
-                appveyor
-                c-blosc
                 cpuinfo.py
+                blosc/c-blosc/internal-complibs/zlib-1.2.11/contrib/dotzlib/
 
 Files: *
 Copyright: 2010-2012 Francesc Alted <faltet@gmail.com>
-           2013-2015 Francesc Alted <faltet@gmail.com>, Valentin Haenel <valentin@haenel.co>
-           2016-2017 Francesc Alted <francesc@blosc.org>
-           2018-2019 Francesc Alted <francesc@blosc.org>, Valentin Haenel <valentin@haenel.co>
+           2013-2019 Francesc Alted <faltet@gmail.com>, Valentin Haenel <valentin@haenel.co>
+           2019-present The Blosc Development Team <blosc@blosc.org>
 License: BSD-3-clause
 
-Files: blosc/toplevel.py
-Copyright: 2020 Emmanuel Arias <eamanu@yaerobi.com>
-           2010-2019 Francesc Alted <faltet@gmail.com>
-License: Expat
-
 Files: debian/*
-Copyright: 2016-2018 Daniel Stender <stender@debian.org>
+Copyright: 2020-2022 Emmanuel Arias <eamanu@yaerobi.com>
+           2016-2018 Daniel Stender <stender@debian.org>
 License: Expat
 
 License: Expat

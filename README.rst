@@ -1,23 +1,19 @@
-python-blosc: a Python wrapper for the extremely fast Blosc compression library
-===============================================================================
+============
+Python-Blosc
+============
 
-:Author: Francesc Alted
-:Author: Valentin Haenel
-:Contact: faltet@gmail.com
-:Contact: valentin@haenel.co
+A Python wrapper for the extremely fast Blosc compression library
+=================================================================
+
+:Author: The Blosc development team
+:Contact: blosc@blosc.org
 :Github: https://github.com/Blosc/python-blosc
-:URL: http://python-blosc.blosc.org
-:Travis CI: |travis|
-:Appveyor: |appveyor|
+:URL: https://www.blosc.org/python-blosc/python-blosc.html
 :PyPi: |version|
 :Anaconda: |anaconda|
 :Gitter: |gitter|
 :Code of Conduct: |Contributor Covenant|
 
-.. |travis| image:: https://travis-ci.org/Blosc/python-blosc.png?branch=master
-        :target: https://travis-ci.org/Blosc/python-blosc
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/dexdkko8omge6o3s/branch/master?svg=true
-        :target: https://ci.appveyor.com/project/FrancescAlted/python-blosc/branch/master
 .. |version| image:: https://img.shields.io/pypi/v/blosc.png
         :target: https://pypi.python.org/pypi/blosc
 .. |anaconda| image:: https://anaconda.org/conda-forge/python-blosc/badges/version.svg
@@ -25,7 +21,7 @@ python-blosc: a Python wrapper for the extremely fast Blosc compression library
 .. |gitter| image:: https://badges.gitter.im/Blosc/c-blosc.svg
         :target: https://gitter.im/Blosc/c-blosc
 .. |Contributor Covenant| image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
-        :target: code_of_conduct.md
+        :target: https://github.com/Blosc/community/blob/master/code_of_conduct.md
 
 
 What it is
@@ -41,21 +37,14 @@ with relatively low entropy, like sparse data, time series, grids with
 regular-spaced values, etc.
 
 python-blosc a Python package that wraps Blosc.  python-blosc supports
-Python 3.6 or higher versions.
+Python 3.8 or higher versions.
 
 
 Installing
 ==========
 
 
-You can install binary packages with ``conda``:
-
-.. code-block:: console
-
-    $ conda install -c conda-forge python-blosc
-
-Or, install it as a typical Python source package (requires c-compiler and
-Python headers) from PyPi using ``pip``:
+Blosc is now offering Python wheels for the main OS (Win, Mac and Linux) and platforms. You can install binary packages from PyPi using ``pip``:
 
 .. code-block:: console
 
@@ -67,11 +56,11 @@ Documentation
 
 The Sphinx based documentation is here:
 
-http://python-blosc.blosc.org
+https://blosc.org/python-blosc/python-blosc.html
 
 Also, some examples are available on python-blosc wiki page:
 
-http://github.com/blosc/python-blosc/wiki
+https://github.com/blosc/python-blosc/wiki
 
 Lastly, here is the `recording
 <https://www.youtube.com/watch?v=rilU44j_wUU&list=PLNkWzv63CorW83NY3U93gUar645jTXpJF&index=15>`_
@@ -98,7 +87,7 @@ Installing via setuptools
 
 Any codec can be enabled (`=1`) or disabled (`=0`) on this build-path with the appropriate
 OS environment variables `INCLUDE_LZ4`, `INCLUDE_SNAPPY`, `INCLUDE_ZLIB`, and
-`INCLUDE_ZLIB`. By default all the codecs in Blosc are enabled except Snappy
+`INCLUDE_ZSTD`. By default all the codecs in Blosc are enabled except Snappy
 (due to some issues with C++ with the `gcc` toolchain).
 
 Compiler specific optimisations are automatically enabled by inspecting
@@ -130,17 +119,15 @@ Using an environment variable:
 
 .. code-block:: console
 
-    $ BLOSC_DIR=/usr/local     (or "set BLOSC_DIR=\blosc" on Win)
-    $ export BLOSC_DIR         (not needed on Win)
-    $ python setup.py build_clib
+    $ export USE_SYSTEM_BLOSC=1                 # or "set USE_SYSTEM_BLOSC=1" on Windows
+    $ export Blosc_ROOT=/usr/local/customprefix # If you installed Blosc into a custom location
     $ python setup.py build_ext --inplace
 
-Using a flag:
+Using flags:
 
 .. code-block:: console
 
-    $ python setup.py build_clib
-    $ python setup.py build_ext --inplace --blosc=/usr/local
+    $ python setup.py build_ext --inplace -DUSE_SYSTEM_BLOSC:BOOL=YES -DBlosc_ROOT:PATH=/usr/local/customprefix
 
 
 Testing
@@ -151,15 +138,7 @@ running the doctests in ``blosc/test.py``:
 
 .. code-block:: console
 
-    $ PYTHONPATH=.   (or "set PYTHONPATH=." on Win)
-    $ export PYTHONPATH=.  (not needed on Win)
-    $ python blosc/test.py  (add -v for verbose mode)
-
-Or alternatively, you can use the third-party ``nosetests`` script:
-
-.. code-block:: console
-
-    $ nosetests --with-doctest (add -v for verbose mode)
+    $ python -m blosc.test  (add -v for verbose mode)
 
 Once installed, you can re-run the tests at any time with:
 
@@ -321,8 +300,8 @@ License
 =======
 
 The software is licenses under a 3-Clause BSD licsense. A copy of the
-python-blosc license can be found in `LICENSE.txt <LICENSE.txt>`_. A copy of all licenses can be
-found in `LICENSES/ <LICENSES/>`_.
+python-blosc license can be found in
+`LICENSE.txt <https://github.com/Blosc/python-blosc/blob/main/LICENSE.txt>`_.
 
 Mailing list
 ============

@@ -1,3 +1,47 @@
+python-blosc (1.11.1+ds1-1) unstable; urgency=medium
+
+  * d/watch: Fix url to download the upstream releases.
+  * New upstream version.
+  * d/copyright: Update copyright for upstream files.
+    - Remove entry blosc/toplevel.py this have the same copyright of all files
+    of upstream.
+    - Update the Upstream-Contact information.
+  * d/control: Add python3-pydata-sphinx-theme as Build Depends.
+    - run wrap-and-sort.
+  * d/python3-blosc.examples: Remove file, there are no more examples in
+    upstream package.
+  * d/control: Bumpt Standards-Version to 4.6.2 (from 4.6.0.1; no further
+    changes neede).
+  * d/patches: Update 0001-Deactivate-SSE2-AVX2-if-no-flags.patch patch.
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Thu, 29 Dec 2022 13:04:47 -0300
+
+python-blosc (1.10.6+ds1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * d/patches: Remove 0001-Add-patch-to-use-libblosc.patch and
+    0002-Skip-test-until-new-upstream-release-on-Debian.patch they are not
+    longer needed.
+    - Rename patch 0003-Deactivate-SSE2-AVX2-if-no-flags.patch =>
+      0001-Deactivate-SSE2-AVX2-if-no-flags.patch. Also, updated it.
+  * d/control: Bump Standards-Version to 4.6.0.1. No changes needed.
+  * d/rules: Update the build process from upstream. Now build using the
+    libblosc-dev package installed.
+    * d/rules: Remove BLOSC_DIR variable, it's no longer needed.
+  * d/watch: Bump version to 4.
+  * d/upstream/metadata: Add Repository and Repository-Browse information.
+  * d/copyright: Exclude dotzlib folder that contains non free files.
+    - Remove from Files-Excluded: appveyor and c-blosc, they aren't in
+    upstream tarball.
+    - Repack without dotzlib folder.
+  * d/python3-blosc.examples: Install examples under /blosc/c-blosc/examples.
+  * d/copyright: Fix copyright debian files. Remove my name from
+    blosc/toplevel.py and put in in the correct place in debian/* files
+    section.
+    - Update copyright year for debian/* files.
+
+ -- Emmanuel Arias <eamanu@yaerobi.com>  Tue, 17 May 2022 17:27:56 +0000
+
 python-blosc (1.9.2+ds1-3) unstable; urgency=medium
 
   * Team upload

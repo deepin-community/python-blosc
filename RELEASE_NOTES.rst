@@ -2,12 +2,99 @@
  Release notes for python-blosc
 ================================
 
-:Author: Francesc Alted
-:Author: Valentin Hänel
-:Contact: faltet@gmail.com
-:Contact: valentin@haenel.co
-:URL: http://python-blosc.blosc.org
+:Author: The Blosc development team
+:Contact: blosc@blosc.org
+:URL: https://www.blosc.org/python-blosc/python-blosc.html
 :URL: https://github.com/Blosc/python-blosc
+
+
+Changes from 1.11.0 to 1.11.1
+=============================
+
+* Internal C-Blosc sources updated to 1.21.3.
+
+
+Changes from 1.10.6 to 1.11.0
+=============================
+
+* Internal C-Blosc sources updated to 1.21.2 (they are a git submodule now).
+
+* Many small code improvements, improved consistency and typo fixes.
+  Thanks to Dimitri Papadopoulos Orfanos.
+
+* Support for Python 3.11.  Support for Python 3.7 has been dropped.
+  Thanks to Dimitri Papadopoulos Orfanos.
+
+* Several other fixes, mainly related with the building process, which
+  should be more solid now in different situations.
+
+
+Changes from 1.10.5 to 1.10.6
+=============================
+
+* Add a missed cmake folder to distributed files.  See #253.
+  Thanks to Ben Greiner.
+
+
+Changes from 1.10.4 to 1.10.5
+=============================
+
+- Re-enable the possibility to use an already installed C-Blosc library.
+  See #244.  Thanks to Ben Greiner.
+- Add aarch64 wheels. See #250.  Thanks to @odidev.
+- Deactivate SSE2 and AVX2 if a CPU has no flags.  See #242.
+  Thanks to Graham Inggs.
+- Wheels for Linux 32 bits are not distributed anymore.
+- Updated vendored C-Blosc to 1.21.1.
+
+
+Changes from 1.10.2 to 1.10.4
+=============================
+
+- Update `blosc.nthreads` when `blosc.set_nthreads()` is called.
+  Fixes #246
+
+
+Changes from 1.10.1 to 1.10.2
+=============================
+
+- README.rst updated with wheels information.
+
+
+Changes from 1.10.0 to 1.10.1
+=============================
+
+- Added pyproject.toml to fix issues when building the package for a
+  Python version that does not have a wheel. See:
+  https://github.com/Blosc/python-blosc/issues/239
+
+- Added blosc/c-blosc/README.md in the source distribution. See:
+  https://github.com/Blosc/python-blosc/pull/240
+
+- Vendored cpuinfo.py updated to version 7.0.0.
+
+
+Changes from 1.9.2 to 1.10.0
+============================
+
+- Updated vendored C-Blosc to 1.21.0.
+
+- Wheels for Intel (32 and 64 bits) and all major OS (Win, Linux, Mac) are here.
+  The wheels have support for runtime detection for AVX2, so it will be
+  automatically leveraged in case the local host has AVX2.  No need anymore to
+  worry about using different binaries for CPUs not having AVX2 hardware.
+
+  Also, we are distributing binaries for C-Blosc libraries (dynamic and static)
+  and headers.  This way, people trying to use the C-Blosc library can use the
+  python-blosc wheels to install the necessary development files.  For details,
+  see: https://github.com/Blosc/c-blosc/blob/main/COMPILING_WITH_WHEELS.rst
+
+  We gratefully acknowledge Jeff Hammerbacher for supporting the addition of
+  wheels for Blosc.
+
+- Officially drop support for Python < 3.7.  Although we did not any explicit
+  action that is incompatible with older Python versions, we only provide
+  wheels for Python >= 3.7 (til 3.9).
 
 
 Changes from 1.9.1 to 1.9.2
@@ -22,7 +109,7 @@ Changes from 1.9.1 to 1.9.2
   internal threads to be used by default has been increased from 4 to 8.
 
 - Allow zero-copy decompression by allowing bytes-like input.  See PR:
-  https://github.com/Blosc/python-blosc/issues/229.  Thanks to Lehman
+  https://github.com/Blosc/python-blosc/pull/230.  Thanks to Lehman
   Garrison.
 
 - Fix DeprecationWarning due to invalid escape sequence and use
@@ -108,7 +195,7 @@ Changes from 1.5.1 to 1.6.1
 
 - Implemented `get_blocksize()`, thanks to Alberto Sabater
 
-- Seperate compilation of codecs, thanks to Robert McLeod
+- Separate compilation of codecs, thanks to Robert McLeod
 
 - Removal of Numpy dependencies, thanks to Robert McLeod
 
@@ -315,7 +402,7 @@ Changes from 1.2.0 to 1.2.1
 
 - Updated to c-blosc 1.3.3.
 
-- Added a new `cname2clib` map for programatically determine the library
+- Added a new `cname2clib` map for programmatically determine the library
   associated to a compressor.
 
 - New `get_clib(cbuffer)` that tells which compression library format

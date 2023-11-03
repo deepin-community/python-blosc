@@ -1,0 +1,22 @@
+Description: Deactivate SSE2 and AVX2 if CPU has no flags
+Bug: https://github.com/Blosc/python-blosc/issues/227
+Bug-Debian: https://bugs.debian.org/976910
+Forwarded: https://github.com/Blosc/python-blosc/pull/242
+Author: Graham Inggs <ginggs@debian.org>
+Last-Update: 2020-12-30
+
+Index: python-blosc/setup.py
+===================================================================
+--- python-blosc.orig/setup.py	2022-12-29 18:27:35.726002812 -0300
++++ python-blosc/setup.py	2022-12-29 18:27:35.726002812 -0300
+@@ -81,8 +81,8 @@
+           ['-DUSE_SYSTEM_BLOSC:BOOL=ON'] if int(os.environ.get('USE_SYSTEM_BLOSC', '0'))
+           else [
+            '-DUSE_SYSTEM_BLOSC:BOOL=OFF',
+-           '-DDEACTIVATE_SSE2:BOOL=%s' % cmake_bool(('DISABLE_BLOSC_SSE2' in os.environ) or (cpu_info is None) or ('sse2' not in cpu_info['flags'])),
+-           '-DDEACTIVATE_AVX2:BOOL=%s' % cmake_bool(('DISABLE_BLOSC_AVX2' in os.environ) or (cpu_info is None) or ('avx2' not in cpu_info['flags'])),
++           '-DDEACTIVATE_SSE2:BOOL=%s' % cmake_bool(('DISABLE_BLOSC_SSE2' in os.environ) or (cpu_info is None) or ('flags' not in cpu_info) or ('sse2' not in cpu_info['flags'])),
++           '-DDEACTIVATE_AVX2:BOOL=%s' % cmake_bool(('DISABLE_BLOSC_AVX2' in os.environ) or (cpu_info is None) or ('flags' not in cpu_info) or ('avx2' not in cpu_info['flags'])),
+            '-DDEACTIVATE_LZ4:BOOL=%s' % cmake_bool(not int(os.environ.get('INCLUDE_LZ4', '1'))),
+            # Snappy is disabled by default
+            '-DDEACTIVATE_SNAPPY:BOOL=%s' % cmake_bool(not int(os.environ.get('INCLUDE_SNAPPY', '0'))),

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 threadpool.py
 Created on Sun Oct 23 12:03:46 2016
@@ -10,7 +9,6 @@ chunks.  The target is an image stack [50,1024,1024], where each frame can
 be compressed as a chunk.
 """
 
-from __future__ import print_function
 import numpy as np
 import time
 import blosc

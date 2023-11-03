@@ -1,8 +1,7 @@
 ########################################################################
 #
-#       License: MIT
 #       Created: Jan 19, 2013
-#       Author:  Francesc Alted - faltet@gmail.com
+#       Author:  The Blosc development team - blosc@blosc.org
 #
 ########################################################################
 
@@ -11,7 +10,6 @@ Small benchmark that compares a plain NumPy array copy against
 compression through different compressors in Blosc.
 """
 
-from __future__ import print_function
 import numpy as np
 import time
 import blosc
@@ -45,11 +43,11 @@ print("\nTimes for compressing/decompressing with clevel=%d and %d threads" % (
 for (in_, label) in arrays:
     print("\n*** %s ***" % label)
     for cname in blosc.compressor_list():
-        for filter in [blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE]:
+        for shuffle in (blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE):
             t0 = time.time()
             c = blosc.compress_ptr(in_.__array_interface__['data'][0],
                                    in_.size, in_.dtype.itemsize,
-                                   clevel=clevel, shuffle=filter, cname=cname)
+                                   clevel=clevel, shuffle=shuffle, cname=cname)
             tc = time.time() - t0
             # cause page faults here
             out = np.full(in_.size, fill_value=0, dtype=in_.dtype)
@@ -58,5 +56,5 @@ for (in_, label) in arrays:
             td = time.time() - t0
             assert((in_ == out).all())
             print("  *** %-8s, %-10s *** %6.3f s (%.2f GB/s) / %5.3f s (%.2f GB/s)" % (
-                cname, blosc.filters[filter], tc, ((N*8 / tc) / 2**30), td, ((N*8 / td) / 2**30)), end='')
+                cname, blosc.filters[shuffle], tc, ((N*8 / tc) / 2**30), td, ((N*8 / td) / 2**30)), end='')
             print("\tCompr. ratio: %5.1fx" % (N*8. / len(c)))

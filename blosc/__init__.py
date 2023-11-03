@@ -1,8 +1,7 @@
 ########################################################################
 #
-#       License: MIT
 #       Created: September 22, 2010
-#       Author:  Francesc Alted - faltet@gmail.com
+#       Author:  The Blosc development team - blosc@blosc.org
 #
 ########################################################################
 
@@ -61,21 +60,20 @@ from blosc.toplevel import (
 # Dictionaries for the maps between compressor names and libs
 cnames = compressor_list()
 # Map for compression names and libs
-cname2clib = dict((name, clib_info(name)[0]) for name in cnames)
+cname2clib = {name: clib_info(name)[0] for name in cnames}
 # Map for compression libraries and versions
 clib_versions = dict(clib_info(name) for name in cnames)
 
 
 # Initialize Blosc
 init()
-# default to keep GIL, since it's just extra overhead if we aren't 
+# default to keep GIL, since it's just extra overhead if we aren't
 # threading ourselves
 set_releasegil(False)
 # Internal Blosc threading
 nthreads = ncores = detect_number_of_cores()
 # Protection against too many cores
-if nthreads > 8:
-    nthreads = 8
+nthreads = min(nthreads, 8)
 set_nthreads(nthreads)
 blosclib_version = "%s (%s)" % (VERSION_STRING, VERSION_DATE)
 import atexit

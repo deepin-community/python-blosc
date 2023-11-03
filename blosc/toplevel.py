@@ -1,25 +1,18 @@
-# -*- coding: utf-8 -*-
 ########################################################################
 #
-#       License: MIT
 #       Created: September 22, 2010
-#       Author:  Francesc Alted - faltet@gmail.com
+#       Author:  The Blosc development team - blosc@blosc.org
 #
 ########################################################################
 
 import os
+import pickle
+import subprocess
 import sys
-from distutils.version import LooseVersion
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+from ._version import LooseVersion
 
 from blosc import blosc_extension as _ext
 import blosc
-
-# version number hack
-vi = sys.version_info
 
 
 def detect_number_of_cores():
@@ -42,9 +35,14 @@ def detect_number_of_cores():
             if isinstance(ncpus, int) and ncpus > 0:
                 return ncpus
         else:  # OSX:
-            return int(os.popen2("sysctl -n hw.ncpu")[1].read())
+            completed = subprocess.run(("sysctl", "-n", "hw.ncpu"),
+                                       stdout=subprocess.PIPE)
+            if completed.returncode == 0:
+                ncpus = int(completed.stdout)
+                if ncpus > 0:
+                    return ncpus
     # Windows:
-    if "NUMBER_OF_PROCESSORS" in os.environ:
+    elif "NUMBER_OF_PROCESSORS" in os.environ:
         ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
         if ncpus > 0:
             return ncpus
@@ -92,6 +90,7 @@ def set_nthreads(nthreads):
         raise ValueError("the number of threads cannot be larger than %d" %
                          blosc.MAX_THREADS)
 
+    blosc.nthreads = nthreads
     return _ext.set_nthreads(nthreads)
 
 
@@ -104,7 +103,7 @@ def set_blocksize(blocksize):
     Notes
     -----
 
-    This is a low-level function and is recommened for expert users only.
+    This is a low-level function and is recommended for expert users only.
 
     Examples
     --------
@@ -340,7 +339,7 @@ def free_resources():
 
 
 def _check_shuffle(shuffle):
-    if shuffle not in [blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE]:
+    if shuffle not in (blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE):
         raise ValueError("shuffle can only be one of NOSHUFFLE, SHUFFLE"
                          " and BITSHUFFLE.")
     if (shuffle == blosc.BITSHUFFLE and
@@ -376,7 +375,7 @@ def _check_bytesobj(bytesobj):
 def _check_byteslike(bytes_like):
     try:
         memoryview(bytes_like)
-    except:
+    except Exception:
         raise TypeError("Input type %s must be a bytes-like object that supports Python Buffer Protocol" % type(bytes_like))
 
 
@@ -436,7 +435,7 @@ def compress(bytesobj, typesize=8, clevel=9, shuffle=blosc.SHUFFLE,
 
     >>> import array, sys
     >>> a = array.array('i', range(1000*1000))
-    >>> a_bytesobj = a.tobytes() if sys.version_info >= (3, 0, 0) else a.tostring()
+    >>> a_bytesobj = a.tobytes()
     >>> c_bytesobj = blosc.compress(a_bytesobj, typesize=4)
     >>> len(c_bytesobj) < len(a_bytesobj)
     True
@@ -577,7 +576,7 @@ def decompress(bytes_like, as_bytearray=False):
 
     >>> import array, sys
     >>> a = array.array('i', range(1000*1000))
-    >>> a_bytesobj = a.tobytes() if sys.version_info >= (3, 0, 0) else a.tostring()
+    >>> a_bytesobj = a.tobytes()
     >>> c_bytesobj = blosc.compress(a_bytesobj, typesize=4)
     >>> a_bytesobj2 = blosc.decompress(c_bytesobj)
     >>> a_bytesobj == a_bytesobj2
@@ -806,17 +805,16 @@ def load_tests(loader, tests, pattern):
 def os_release_pretty_name():
     for p in ('/etc/os-release', '/usr/lib/os-release'):
         try:
-            f = open(p, 'rt')
+            f = open(p)
             for line in f:
                 name, _, value = line.rstrip().partition('=')
                 if name == 'PRETTY_NAME':
                     if len(value) >= 2 and value[0] in '"\'' and value[0] == value[-1]:
                         value = value[1:-1]
                     return value
-        except IOError:
+        except OSError:
             pass
-    else:
-        return None
+    return None
 
 def print_versions():
     """Print all the versions of software that python-blosc relies on."""

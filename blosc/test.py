@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import division
-import sys
 import gc
 import os
-from distutils.version import LooseVersion
+from ._version import LooseVersion
 import ctypes
 import blosc
 import unittest
-
-# version number hack
-vi = sys.version_info
 
 try:
     import numpy
@@ -169,7 +163,7 @@ class TestCodec(unittest.TestCase):
                           typesize=1, cname='foo')
 
         # Create a simple mock to avoid having to create a buffer of 2 GB
-        class LenMock(object):
+        class LenMock:
             def __len__(self):
                 return blosc.MAX_BUFFERSIZE+1
         self.assertRaises(ValueError, blosc.compress, LenMock(), typesize=1)

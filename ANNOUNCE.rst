@@ -1,24 +1,30 @@
-=============================
-Announcing python-blosc 1.9.2
-=============================
+==============================
+Announcing python-blosc 1.11.1
+==============================
 
 What is new?
 ============
 
-This is a maintenance release for better support recent version of Python
-(3.8 and 3.9).  Also, and due to the evolution of modern CPUs, the
-number of default threads has been raised to 8 (from 4).
-Finally, zero-copy decompression is now supported by allowing bytes-like
-input.  Thanks to Lehman Garrison.
+This is a maintenance release.  Besides coming with the latest C-Blosc
+sources (1.21.3), there are new arm64 wheels for MacOS.
+
+In addition to extensions, we are distributing library
+binaries in the wheels too.  This way, people willing to use the C-Blosc
+library can make use of these wheels to install the necessary development
+files.  For details, see:
+https://github.com/Blosc/c-blosc/blob/main/COMPILING_WITH_WHEELS.rst
 
 For more info, you can have a look at the release notes in:
 
-https://github.com/Blosc/python-blosc/blob/master/RELEASE_NOTES.rst
+https://github.com/Blosc/python-blosc/blob/main/RELEASE_NOTES.rst
 
 More docs and examples are available in the documentation site:
 
-http://python-blosc.blosc.org
+https://www.blosc.org/python-blosc/python-blosc.html
 
+**Important note**: There is a new Python-Blosc2 wrapper
+on top of the next generation C-Blosc2 library.  Check it out at:
+https://github.com/Blosc/python-blosc2
 
 What is it?
 ===========
@@ -27,7 +33,7 @@ Blosc (http://www.blosc.org) is a high performance compressor optimized
 for binary data.  It has been designed to transmit data to the processor
 cache faster than the traditional, non-compressed, direct memory fetch
 approach via a memcpy() OS call.  Blosc works well for compressing
-numerical arrays that contains data with relatively low entropy, like
+numerical arrays that contain data with relatively low entropy, like
 sparse data, time series, grids with regular-spaced values, etc.
 
 python-blosc (http://python-blosc.blosc.org/) is the Python wrapper for
@@ -38,7 +44,7 @@ used to compress in-memory data buffers for transmission to other
 machines, persistence or just as a compressed cache.
 
 There is also a handy tool built on top of python-blosc called Bloscpack
-(https://github.com/Blosc/bloscpack). It features a commmand line
+(https://github.com/Blosc/bloscpack). It features a command line
 interface that allows you to compress large binary datafiles on-disk.
 It also comes with a Python API that has built-in support for
 serializing and deserializing Numpy arrays both on-disk and in-memory at
@@ -52,6 +58,11 @@ The sources and documentation are managed through github services at:
 
 http://github.com/Blosc/python-blosc
 
+
+Twitter
+=======
+
+Please follow @Blosc2 to get informed about the latest developments.
 
 
 ----

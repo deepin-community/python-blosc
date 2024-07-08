@@ -1,3 +1,9 @@
+python-blosc (1.11.1+ds1-1deepin1) unstable; urgency=medium
+
+  * No source change upload against python 3.12.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Mon, 08 Jul 2024 09:54:24 +0200
+
 python-blosc (1.11.1+ds1-1) unstable; urgency=medium
 
   * d/watch: Fix url to download the upstream releases.
